@@ -1,12 +1,12 @@
-﻿namespace Pastel
-{
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Linq;
+﻿namespace Pastel;
 
-    internal static class EnvironmentDetector
-    {
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+internal static class EnvironmentDetector
+{
         private const string DisableEnvironmentDetectionEnvironmentVariableName = "PASTEL_DISABLE_ENVIRONMENT_DETECTION";
 
         /// <summary>
@@ -14,7 +14,7 @@
         /// </summary>
         public static bool ColorsEnabled()
         {
-            return Environment.GetEnvironmentVariable(DisableEnvironmentDetectionEnvironmentVariableName) != null || !HasEnvironmentVariable();
+                return Environment.GetEnvironmentVariable(DisableEnvironmentDetectionEnvironmentVariableName) != null || !HasEnvironmentVariable();
         }
 
 #if NET9_0_OR_GREATER
@@ -28,13 +28,13 @@
                                                                                                                       ];
 #else
         private static readonly Func<string, string, bool>[] s_environmentVariableDetectors = {
-                                                                                                 IsBitbucketEnvironmentVariableKey,
-                                                                                                 IsTeamCityEnvironmentVariableKey,
-                                                                                                 NoColor,
-                                                                                                 IsGitHubAction,
-                                                                                                 IsCI,
-                                                                                                 IsJenkins
-                                                                                              };
+                IsBitbucketEnvironmentVariableKey,
+                IsTeamCityEnvironmentVariableKey,
+                NoColor,
+                IsGitHubAction,
+                IsCI,
+                IsJenkins
+        };
 #endif
 
 #if NET9_0_OR_GREATER
@@ -43,7 +43,7 @@
         private static bool IsBitbucketEnvironmentVariableKey(string key, string value)
 #endif
         {
-            return key.StartsWith("BITBUCKET_", StringComparison.OrdinalIgnoreCase);
+                return key.StartsWith("BITBUCKET_", StringComparison.OrdinalIgnoreCase);
         }
 
 #if NET9_0_OR_GREATER
@@ -52,7 +52,7 @@
         private static bool IsTeamCityEnvironmentVariableKey(string key, string value)
 #endif
         {
-            return key.StartsWith("TEAMCITY_", StringComparison.OrdinalIgnoreCase);
+                return key.StartsWith("TEAMCITY_", StringComparison.OrdinalIgnoreCase);
         }
 
         // https://no-color.org/
@@ -62,7 +62,7 @@
         private static bool NoColor(string key, string value)
 #endif
         {
-            return key.Equals("NO_COLOR", StringComparison.OrdinalIgnoreCase);
+                return key.Equals("NO_COLOR", StringComparison.OrdinalIgnoreCase);
         }
 
         // Set by GitHub Actions
@@ -72,7 +72,7 @@
         private static bool IsGitHubAction(string key, string value)
 #endif
         {
-            return key.StartsWith("GITHUB_ACTION", StringComparison.OrdinalIgnoreCase);
+                return key.StartsWith("GITHUB_ACTION", StringComparison.OrdinalIgnoreCase);
         }
 
         // Set by GitHub Actions and Travis CI
@@ -82,8 +82,8 @@
         private static bool IsCI(string key, string value)
 #endif
         {
-            return     key.Equals("CI", StringComparison.OrdinalIgnoreCase)
-                   && (value.Equals("true", StringComparison.OrdinalIgnoreCase) || value is "1");
+                return     key.Equals("CI", StringComparison.OrdinalIgnoreCase)
+                           && (value.Equals("true", StringComparison.OrdinalIgnoreCase) || value is "1");
         }
 
         // Detect Jenkins enviroment
@@ -93,32 +93,31 @@
         private static bool IsJenkins(string key, string value)
 #endif
         {
-            return key.StartsWith("JENKINS_URL", StringComparison.OrdinalIgnoreCase);
+                return key.StartsWith("JENKINS_URL", StringComparison.OrdinalIgnoreCase);
         }
 
         private static bool HasEnvironmentVariable()
         {
-            var environmentVariables = Environment.GetEnvironmentVariables(EnvironmentVariableTarget.Process).Cast<DictionaryEntry>()
-                                                  .Concat(Environment.GetEnvironmentVariables(EnvironmentVariableTarget.User).Cast<DictionaryEntry>())
-                                                  .Concat(Environment.GetEnvironmentVariables(EnvironmentVariableTarget.Machine).Cast<DictionaryEntry>())
-                                                  .Select(de => new KeyValuePair<string, string>(de.Key.ToString(), de.Value != null ? de.Value.ToString() : ""))
-#if NET8_0_OR_GREATER
-                                                  .DistinctBy(kvp => kvp.Key)
-#else
+                var environmentVariables = Environment.GetEnvironmentVariables(EnvironmentVariableTarget.Process).Cast<DictionaryEntry>()
+                                                      .Concat(Environment.GetEnvironmentVariables(EnvironmentVariableTarget.User).Cast<DictionaryEntry>())
+                                                      .Concat(Environment.GetEnvironmentVariables(EnvironmentVariableTarget.Machine).Cast<DictionaryEntry>())
+                                                      .Select(de => new KeyValuePair<string, string>(de.Key.ToString(), de.Value != null ? de.Value.ToString() : ""))
+                                              #if NET8_0_OR_GREATER
+                                                      .DistinctBy(kvp => kvp.Key)
+                                              #else
                                                   .GroupBy(kvp => kvp.Key, (_, kvps) => kvps.First())
-#endif
-                                                  .ToList()
-                                                  .AsReadOnly();
+                                              #endif
+                                                      .ToList()
+                                                      .AsReadOnly();
 
-            foreach (var environmentVariable in environmentVariables)
-            {
-                if (s_environmentVariableDetectors.Any(evd => evd(environmentVariable.Key, environmentVariable.Value)))
+                foreach (var environmentVariable in environmentVariables)
                 {
-                    return true;
+                        if (s_environmentVariableDetectors.Any(evd => evd(environmentVariable.Key, environmentVariable.Value)))
+                        {
+                                return true;
+                        }
                 }
-            }
 
-            return false;
+                return false;
         }
-    }
 }
