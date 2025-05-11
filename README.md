@@ -1,4 +1,4 @@
-# Pastel
+# Pastel Enhanced
 
 ![logo](https://raw.githubusercontent.com/silkfire/Pastel/master/img/logo.png)
 
