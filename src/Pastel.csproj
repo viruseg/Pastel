@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+    <LangVersion>default</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -9,15 +10,15 @@
     <Authors>Denis Tulupov, Gabriel Bider</Authors>
     <PackageTags>console colour color colors colours colourful colorful colourize colorize ansi NO_COLOR</PackageTags>
     <Copyright>Copyright © 2025</Copyright>
-    <PackageProjectUrl>https://github.com/viruseg/Pastel</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/viruseg/Pastel.Enhanced</PackageProjectUrl>
     <Description>A tiny utility class that makes colorizing console output a breeze.</Description>
-    <Version>6.0.1</Version>
-    <AssemblyVersion>6.0.1.0</AssemblyVersion>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <PackageVersion>1.0.0</PackageVersion>
     <PackageReleaseNotes>Drop .NET Framework support; Add Extension Methods for Primitive Types</PackageReleaseNotes>
     <PackageLicense>LICENSE.md</PackageLicense>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/viruseg/Pastel</RepositoryUrl>
+    <RepositoryUrl>https://github.com/viruseg/Pastel.Enhanced</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
