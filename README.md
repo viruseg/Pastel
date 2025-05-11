@@ -2,8 +2,7 @@
 
 ![logo](https://raw.githubusercontent.com/silkfire/Pastel/master/img/logo.png)
 
-[![NuGet](https://img.shields.io/nuget/dt/Pastel.svg)](https://www.nuget.org/packages/Pastel)
-[![NuGet](https://img.shields.io/nuget/v/Pastel.svg)](https://www.nuget.org/packages/Pastel)
+[![NuGet](https://img.shields.io/nuget/v/Pastel.Enhanced.svg)](https://www.nuget.org/packages/Pastel.Enhanced)
 
 Give your console app a nicer look by adding some color to the output it produces. 
 This is achieved by wrapping strings of the output in [ANSI escape sequences](https://en.wikipedia.org/wiki/ANSI_escape_code) that instruct the terminal to color the string based on the interpreted code. Tested on both Windows (requires at least Windows 10, v1511 [November Update]) and Linux.
@@ -26,6 +25,18 @@ The basic syntax is very simple. Use the `Pastel()` method on the string you wan
 Console.WriteLine($"Press {"ENTER".Pastel(Color.FromArgb(165, 229, 250))} to continue");
 ```
 ![Example 1](https://raw.githubusercontent.com/silkfire/Pastel/master/img/example1.png)
+
+The color can be applied to Primitive Types without first converting them to a string. Primitive Types: int, uint, long, ulong, short, ushort, byte, sbyte, float, double, decimal, bool, char.
+```cs
+int intValue = 123;
+intValue.Pastel(ConsoleColor.Cyan);
+
+bool boolValue = true;
+boolValue.Pastel(ConsoleColor.Cyan);
+
+float floatValue = 123.45f;
+floatValue.Pastel(ConsoleColor.Cyan, "C0", CultureInfo.InvariantCulture);
+```
 
 You can either use a `System.Drawing.Color` object, a `System.ConsoleColor` enum or a hexadecimal string value.  
 Both upper and lower case hex codes are supported and the leading number sign (#) is optional. 
@@ -81,11 +92,4 @@ If you'd like to override this check and force colors in CI/CD environments, you
 
 Pastel will also honor systems where console color output has explicitly been requested to be turned off. See more information about this initiative at https://no-color.org.
 
-## Support
 
-Has this library helped you or proven to be useful in your project?
-
-* Leave a star!
-* Consider buying me a coffee with the link below! ⭐
-
-<a href="https://www.buymeacoffee.com/silkfire" target="_blank" style="margin-left: 10px;"><img src="https://img.buymeacoffee.com/button-api/?textBuy me a coffee&amp;emoji=☕&amp;slug=silkfire&amp;button_colour=FFDD00&amp;font_colour=000000&amp;font_family=Cookie&amp;outline_colour=000000&amp;coffee_colour=ffffff"></a>
